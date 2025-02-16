@@ -1,0 +1,40 @@
+﻿@model MicroondasApp.Models.Microondas
+
+@{
+    ViewData["Title"] = "Microondas Digital";
+}
+
+<h2>Micro-ondas Digital</h2>
+
+<form asp-action="Iniciar" method="post">
+    <label>Tempo (segundos):</label>
+    <input type="number" name="tempo" value="@Model.TempoSegundos" min="1" max="120" />
+
+    <label>Potência:</label>
+    <input type="number" name="potencia" value="@Model.Potencia" min="1" max="10" />
+
+    <button type="submit">Iniciar</button>
+</form>
+
+<form asp-action="PausarOuCancelar" method="post">
+    <button type="submit">@(@Model.EmPausa ? "Continuar" : "Pausar/Cancelar")</button>
+</form>
+
+<form asp-action="AdicionarTempo" method="post">
+    <button type="submit">Adicionar 30s</button>
+</form>
+
+@if (Model.EmExecucao)
+{
+    <h3>Aquecendo...</h3>
+    <p>@Model.Aquecimento</p>
+}
+
+<h3>Programas de Aquecimento</h3>
+@foreach (var programa in Model.Programas)
+{
+    <form asp-action="SelecionarPrograma" method="post">
+        <input type="hidden" name="nome" value="@programa.Nome" />
+        <button type="submit">@programa.Nome</button>
+    </form>
+}
