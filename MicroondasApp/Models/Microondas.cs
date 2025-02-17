@@ -1,4 +1,4 @@
-﻿// Models/Microondas.cs
+// Models/Microondas.cs
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -32,17 +32,7 @@ namespace MicroondasApp.Models
 
         public void PausarOuCancelar()
         {
-            if (EmExecucao)
-            {
-                EmPausa = !EmPausa;
-                if (!EmPausa) EmExecucao = false;
-            }
-            else
-            {
-                TempoSegundos = 30;
-                Potencia = 10;
-                Aquecimento = "";
-            }
+
         }
 
         public void AdicionarTempo()
@@ -54,6 +44,29 @@ namespace MicroondasApp.Models
         private string GerarStringAquecimento()
         {
             return new string('.', Potencia) + " Aquecimento concluído";
+        }
+
+        internal Task PausarOuCancelarAsync()
+        {
+            try
+            {
+                if (EmExecucao)
+                {
+                    EmPausa = !EmPausa;
+                    if (!EmPausa) EmExecucao = false;
+                }
+                else
+                {
+                    TempoSegundos = 30;
+                    Potencia = 10;
+                    Aquecimento = "";
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
     }
 }
