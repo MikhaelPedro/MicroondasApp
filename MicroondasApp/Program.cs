@@ -25,3 +25,10 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
+
+app.Use(async (context, next) =>
+{
+    context.Response.Headers.Add("Content-Security-Policy", "script-src 'self' 'unsafe-eval'");
+    await next();
+});

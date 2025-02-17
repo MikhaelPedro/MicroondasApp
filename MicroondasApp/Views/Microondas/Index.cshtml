@@ -6,14 +6,14 @@
 
 <h2>Micro-ondas Digital</h2>
 
-<form asp-action="Iniciar" method="post">
+<form>
     <label>Tempo (segundos):</label>
-    <input type="number" name="tempo" value="@Model.TempoSegundos" min="1" max="120" />
+    <input type="number" name="tempo" value="@Model.TempoSegundos" min="1" max="120" id="tempoID"/>
 
     <label>Potência:</label>
     <input type="number" name="potencia" value="@Model.Potencia" min="1" max="10" />
 
-    <button type="submit">Iniciar</button>
+    <button type="submit" onclick="iniciarAquecimento();">Iniciar</button>
 </form>
 
 <form asp-action="PausarOuCancelar" method="post">
@@ -38,3 +38,32 @@
         <button type="submit">@programa.Nome</button>
     </form>
 }
+
+<script>
+    let tempoRestante = parseInt(document.getElementById("tempoID").innerText, 10);
+    let timerInterval;
+
+     function iniciarAquecimento() {
+         // if (tempoRestante > 0) {
+         //     timerInterval = setInterval(() => {
+         //         if (tempoRestante > 0) {
+         //             tempoRestante--;
+         //             document.getElementById("tempoID").innerText = formatarTempo(tempoRestante);
+         //         } else {
+         //             clearInterval(timerInterval);
+         //             alert("Aquecimento concluído!");
+         //         }
+         //     }, 1000); // Atualiza a cada 1 segundo
+         // }
+
+             setInterval(() => {
+                        console.log("Olá");
+            }, 1000);
+
+     }
+
+
+     function abc() {
+         console.log('abca')
+     }
+</script>
