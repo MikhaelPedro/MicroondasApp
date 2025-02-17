@@ -1,4 +1,4 @@
-﻿// Controllers/MicroondasController.cs
+// Controllers/MicroondasController.cs
 using Microsoft.AspNetCore.Mvc;
 using MicroondasApp.Models;
 using System.Collections.Generic;
@@ -30,12 +30,13 @@ namespace MicroondasApp.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpPost]
-        public IActionResult PausarOuCancelar()
-        {
-            _microondas.PausarOuCancelar();
-            return RedirectToAction("Index");
-        }
+    [HttpPost]
+    public async Task<IActionResult> PausarOuCancelar()
+    {
+        await _microondas.PausarOuCancelarAsync();
+        return RedirectToAction("Index");
+    }
+
 
         [HttpPost]
         public IActionResult AdicionarTempo()
