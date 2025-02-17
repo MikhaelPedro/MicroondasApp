@@ -1,4 +1,4 @@
-﻿@model MicroondasApp.Models.Microondas
+@model MicroondasApp.Models.Microondas
 
 @{
     ViewData["Title"] = "Microondas Digital";
@@ -6,21 +6,21 @@
 
 <h2>Micro-ondas Digital</h2>
 
-<form>
+<form asp-action="Iniciar" method="post" onsubmit="event.preventDefault();">
     <label>Tempo (segundos):</label>
     <input type="number" name="tempo" value="@Model.TempoSegundos" min="1" max="120" id="tempoID"/>
 
     <label>Potência:</label>
     <input type="number" name="potencia" value="@Model.Potencia" min="1" max="10" />
 
-    <button type="submit" onclick="iniciarAquecimento();">Iniciar</button>
 </form>
+    <button type="submit" onclick="iniciarAquecimento();">Iniciar</button>
 
-<form asp-action="PausarOuCancelar" method="post">
+<form asp-action="PausarOuCancelar" method="post" onsubmit="event.preventDefault();">
     <button type="submit">@(@Model.EmPausa ? "Continuar" : "Pausar/Cancelar")</button>
 </form>
 
-<form asp-action="AdicionarTempo" method="post">
+<form asp-action="AdicionarTempo" method="post" onsubmit="event.preventDefault();">
     <button type="submit">Adicionar 30s</button>
 </form>
 
@@ -40,30 +40,23 @@
 }
 
 <script>
-    let tempoRestante = parseInt(document.getElementById("tempoID").innerText, 10);
-    let timerInterval;
-
+    
      function iniciarAquecimento() {
-         // if (tempoRestante > 0) {
-         //     timerInterval = setInterval(() => {
-         //         if (tempoRestante > 0) {
-         //             tempoRestante--;
-         //             document.getElementById("tempoID").innerText = formatarTempo(tempoRestante);
-         //         } else {
-         //             clearInterval(timerInterval);
-         //             alert("Aquecimento concluído!");
-         //         }
-         //     }, 1000); // Atualiza a cada 1 segundo
-         // }
-
-             setInterval(() => {
-                        console.log("Olá");
-            }, 1000);
-
+        let tempoRestante = document.getElementById("tempoID").value
+        let timerInterval;
+        
+         if (tempoRestante > 0) {    
+             timerInterval = setInterval(() => {
+                 if (tempoRestante > 0) {
+                     tempoRestante--;
+                     document.getElementById("tempoID").value = tempoRestante;
+                    console.log(tempoRestante)
+                 } else {
+                     clearInterval(timerInterval);
+                     alert("Aquecimento concluído!");
+                 }
+             }, 1000);
+         }           
      }
 
-
-     function abc() {
-         console.log('abca')
-     }
 </script>
